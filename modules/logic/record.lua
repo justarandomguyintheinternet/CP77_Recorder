@@ -243,7 +243,7 @@ function record:playFrame(frame)
 			local rot = nil
 
 			if self.playbackSettings.ignoreRot then
-				rot =  GetSingleton('Quaternion'):ToEulerAngles(self.target:GetWorldPosition())
+				rot =  GetSingleton('Quaternion'):ToEulerAngles(self.target:GetWorldOrientation())
 			else
 				rot = GetSingleton('Quaternion'):ToEulerAngles(Quaternion.new(frameRot.rot.i, frameRot.rot.j, frameRot.rot.k, frameRot.rot.r))
 			end
@@ -275,6 +275,15 @@ function record:playFrame(frame)
 				Game.GetTeleportationFacility():Teleport(self.target, pos , rot)
 			end
 
+			if self.target:IsPlayer() then
+				if self.playbackSettings.camPitch then
+					Game.GetPlayer():GetFPPCameraComponent().pitchMin = rot.pitch - 0.01
+					Game.GetPlayer():GetFPPCameraComponent().pitchMax = rot.pitch
+				end
+				if self.playbackSettings.camRoll then
+					Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(rot.roll, 0, 0)))
+				end
+			end
 		end
 	end
 end

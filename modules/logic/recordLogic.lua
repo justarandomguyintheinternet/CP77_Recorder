@@ -90,7 +90,14 @@ end
 
 function recordLogic.record()
     recordLogic.recordDataPosition[recordLogic.frame] = recordLogic.subject:GetWorldPosition()
-	recordLogic.recordDataRotation[recordLogic.frame] = recordLogic.subject:GetWorldOrientation()
+    if recordLogic.subject:IsPlayer() then
+        local v = Vector4.new(-Game.GetCameraSystem():GetActiveCameraForward().x, -Game.GetCameraSystem():GetActiveCameraForward().y, -Game.GetCameraSystem():GetActiveCameraForward().z, -Game.GetCameraSystem():GetActiveCameraForward().w)
+        local euler = GetSingleton('Vector4'):ToRotation(v)
+        local tEuler = EulerAngles.new(euler.roll, euler.pitch, euler.yaw + 180)
+        recordLogic.recordDataRotation[recordLogic.frame] = GetSingleton('EulerAngles'):ToQuat(tEuler)
+    else
+	    recordLogic.recordDataRotation[recordLogic.frame] = recordLogic.subject:GetWorldOrientation()
+    end
 	--print("Frame " .. recordLogic.frame .. " : " .. tostring(recordLogic.recordDataPosition[recordLogic.frame]))
     recordLogic.frame = recordLogic.frame + 1
 end
@@ -141,7 +148,7 @@ function recordLogic.stopRecord(recorder)
         end)
 
         newRecord.info = {location = recordLogic.getDistrict(), playbackOnText = "Not set", frames = recordLogic.frame, recordedOn = recordLogic.currentSubjectText, name = recordLogic.recordingName, objectID = {hash = hash, length = length}}
-        newRecord.playbackSettings = {startTrim = 0, endTrim = 0, offset = 0, ignoreRot = false, ignorePos = false, ignoreTime = false, invincible = false, enabled = true, reverse = false}
+        newRecord.playbackSettings = {startTrim = 0, endTrim = 0, offset = 0, ignoreRot = false, ignorePos = false, ignoreTime = false, invincible = false, enabled = true, reverse = false, camPitch = true, camRoll = true}
 
         for i = 1, recordLogic.frame do
             local pos = recordLogic.recordDataPosition[i]

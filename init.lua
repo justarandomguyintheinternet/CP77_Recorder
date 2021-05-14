@@ -59,6 +59,9 @@ registerForEvent("onInit", function()
 end)
 
 registerForEvent("onUpdate", function()
+
+	Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(0, 0, 0))) -- Make sure that cam roll is always 0, if not overriden from wtihing run
+
 	if recorder.runtimeData.inGame and not recorder.runtimeData.inMenu then
 		recorder.recordLogic.run(recorder)
 		recorder.playback:run()

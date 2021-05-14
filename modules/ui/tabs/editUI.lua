@@ -43,7 +43,8 @@ end
 
 function editUI.drawSubject()
     local y = 0
-    if editUI.record.target ~= nil and editUI.record.target:IsVehicle() then y = 27 end
+    local targetVehicle = (editUI.record.target ~= nil and editUI.record.target:IsVehicle())
+    if targetVehicle then y = 27 end
 
     ImGui.BeginChild("editUI_Subject", editUI.saveBoxSize.subject.x, editUI.saveBoxSize.subject.y + y, true)
 
@@ -72,7 +73,7 @@ function editUI.drawSubject()
     end
     editUI.record.playbackSettings.invincible = ImGui.Checkbox("Invincible", editUI.record.playbackSettings.invincible)
 
-    if y ~= 0 then
+    if targetVehicle then
         ImGui.Separator()
         if ImGui.Button("Delete Vehicle Mappin") then
             editUI.record.target:GetVehicleComponent():DestroyMappin()
@@ -83,7 +84,11 @@ function editUI.drawSubject()
 end
 
 function editUI.drawPlaybackSettings()
-    ImGui.BeginChild("editUI_PlaybackSettings", editUI.saveBoxSize.pbs.x, editUI.saveBoxSize.pbs.y, true)
+    local y = 0
+    local isPlayer = (editUI.record.target ~= nil and editUI.record.target:IsPlayer())
+    if isPlayer then y = 50 end
+
+    ImGui.BeginChild("editUI_PlaybackSettings", editUI.saveBoxSize.pbs.x, editUI.saveBoxSize.pbs.y + y, true)
 
     ImGui.Text("Playback Settings")
     ImGui.Separator()
@@ -101,6 +106,12 @@ function editUI.drawPlaybackSettings()
     editUI.record.playbackSettings.ignoreRot = ImGui.Checkbox("Ignore Rotation", editUI.record.playbackSettings.ignoreRot)
     editUI.record.playbackSettings.ignorePos = ImGui.Checkbox("Ignore Position", editUI.record.playbackSettings.ignorePos)
     editUI.record.playbackSettings.reverse = ImGui.Checkbox("Reverse Playback", editUI.record.playbackSettings.reverse)
+
+    if isPlayer then
+        ImGui.Separator()
+        editUI.record.playbackSettings.camPitch = ImGui.Checkbox("Player Camera Set Pitch", editUI.record.playbackSettings.camPitch)
+        editUI.record.playbackSettings.camRoll = ImGui.Checkbox("Player Camera Set Roll", editUI.record.playbackSettings.camRoll)
+    end
 
     ImGui.EndChild()
 end
@@ -128,7 +139,6 @@ function editUI.drawEditSettings()
         if editUI.record.currentFrame + 1 > editUI.record.info.frames then
             editUI.record:setFrameEdit(1)
         else
-
             editUI.record:setFrameEdit(editUI.record.currentFrame + 1)
         end
     end

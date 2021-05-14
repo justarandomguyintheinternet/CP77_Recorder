@@ -65,11 +65,13 @@ end
 function arrangeUI.loadRecord(record)
     record.info.playbackOnText = "Not set"
 
-    if arrangeUI.getNumNames(record.info.name) > 0 then 
+    if arrangeUI.getNumNames(record.info.name) > 0 then
         record.info.name = record.info.name .. arrangeUI.getNumNames(record.info.name)
     end
 
     table.insert(arrangeUI.loadedRecords, record)
+
+    record.recorder.offsetManager.resetRecord(record.recorder, record) -- Makes sure that there is an entry in the offset table for that record, since loadRecord gets called when creating a new one, and thus doesnt call record:load
 end
 
 function arrangeUI.drawSlot(recorder, record, id)

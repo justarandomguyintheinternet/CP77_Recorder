@@ -24,8 +24,7 @@ local recorder = {
 	input = require("modules/logic/input"),
 	GameUI = require("modules/external/GameUI"),
 	config = require("modules/logic/config"),
-
-	offsetManager = require("offsetManager")
+	offsetManager = require("modules/logic/offsetManager")
 }
 
 function recorder:new()

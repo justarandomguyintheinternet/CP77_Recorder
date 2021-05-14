@@ -4,3 +4,5 @@
 *.txt
 *.log
 oldinit.lua
+*.md
+*.csv

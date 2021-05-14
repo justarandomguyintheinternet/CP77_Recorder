@@ -103,7 +103,7 @@ function recordLogic.record()
 end
 
 function recordLogic.startRecord(recorder)
-    if recordLogic.subject ~= nil and not recordLogic.paused then
+    if recordLogic.subject ~= nil and not recordLogic.paused and not recordLogic.recording then
         recorder.hud.mode = "Record"
 
         recordLogic.frame = 1

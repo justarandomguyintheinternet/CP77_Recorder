@@ -32,6 +32,7 @@ function record:load(data)
 	if self.info.objectID.hash ~= 69420 then
 		self.recorderObjectID = TweakDBID.new(self.info.objectID.hash, self.info.objectID.length)
 	end
+	self.recorder.offsetManager.resetRecord(self.recorder, self)
 end
 
 function record:loadEffects(data)
@@ -200,7 +201,9 @@ function record:calcPlayFrame(frame)
 		i = self.info.frames
 	end
 
-	if self.playbackSettings.offset ~= 0 and self.playbackSettings.startTrim == 0 then -- Lord fogive me for this ugly piece of crap, this makes sure that offset and startTrim work fine together
+	local realFrames = self.info.frames + (self.playbackSettings.startTrim + self.playbackSettings.endTrim) - self.playbackSettings.offset -- Calculate real amount of frames
+
+	if self.playbackSettings.offset ~= 0 and self.playbackSettings.startTrim == 0 then -- Fuck this ugly piece of crap, but needed to make sure that offset and startTrim work fine together
 		i = math.max(i - self.playbackSettings.offset, 1)
 	elseif self.playbackSettings.offset == 0 and self.playbackSettings.startTrim ~= 0 then
 		i = i + self.playbackSettings.startTrim
@@ -213,7 +216,7 @@ function record:calcPlayFrame(frame)
 	end
 
 	if self.playbackSettings.reverse then
-		i = self.info.frames - i + 1 -- +1 Needed, cuz otherwise it will be one frame short
+		i = realFrames - i + 1 -- If reversed then invert real frame output (i) with realFrames, add 1 cuz its otherwise too short
 	end
 
 	return i
@@ -263,9 +266,10 @@ function record:playFrame(frame)
 				end
 			end
 
-			pos.x = pos.x + self.posOffset.x
-			pos.y = pos.y + self.posOffset.y
-			pos.z = pos.z + self.posOffset.z
+			local offset = self.recorder.offsetManager.getOffset(self.recorder, self)
+			pos.x = pos.x + offset.x
+			pos.y = pos.y + offset.y
+			pos.z = pos.z + offset.z
 
 			if not (self.playbackSettings.ignoreRot and self.playbackSettings.ignorePos) then
 				Game.GetTeleportationFacility():Teleport(self.target, pos , rot)

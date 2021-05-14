@@ -96,7 +96,7 @@ function offset:draw()
         self:execute()
     end
     ImGui.SameLine()
-    ImGui.Text(tostring(self.recorder.test))
+    ImGui.Text("Offset")
 
     if ImGui.Button("Move to player position") then
         local targetPos = self.record.recordData[self.record:calcPlayFrame(self.record.currentFrame)].pos
@@ -114,11 +114,7 @@ function offset:execute()
     self:updateCompatible()
 
     if self.compatible and self.data.active and self.record.playbackSettings.enabled then
-        self.record.posOffset.x = self.miscUtils.deepcopy(self.data.amount.x)
-        self.record.posOffset.y = self.miscUtils.deepcopy(self.data.amount.y)
-        self.record.posOffset.z = self.miscUtils.deepcopy(self.data.amount.z)
-        print("exec", self.data.amount.z)
-        self.recorder.test = self.recorder.test + 1
+        self.recorder.offsetManager.exec(self.recorder, self.record, {x = self.data.amount.x, y = self.data.amount.y, z = self.data.amount.z}) -- See offsetManager.lua for explanation why this is needed
     end
 end
 

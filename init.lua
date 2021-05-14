@@ -25,7 +25,7 @@ local recorder = {
 	GameUI = require("modules/external/GameUI"),
 	config = require("modules/logic/config"),
 
-	test = 1
+	offsetManager = require("offsetManager")
 }
 
 function recorder:new()

@@ -139,7 +139,7 @@ end
 
 function arrangeUI.draw(recorder)
     if next(arrangeUI.loadedRecords) == nil then
-        ImGui.Text("Nothing here... Record something new or load an existing record!")
+        ImGui.Text("Nothing here ... Record something new or load an existing record!")
     else
         for k, data in pairs(arrangeUI.loadedRecords) do
             arrangeUI.drawSlot(recorder, data, k)

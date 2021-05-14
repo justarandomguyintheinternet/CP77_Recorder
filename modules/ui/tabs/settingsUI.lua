@@ -4,6 +4,9 @@ function settings.draw(recorder)
     recorder.settings.defaultName, changed =  ImGui.InputTextWithHint("Default Record Name", "Name...", recorder.settings.defaultName, 100)
     if changed then recorder.config.saveFile("config/config.json", recorder.settings) end
 
+    recorder.settings.deleteConfirm, changed =  ImGui.Checkbox("Show confirm to delete record popup", recorder.settings.deleteConfirm)
+    if changed then recorder.config.saveFile("config/config.json", recorder.settings) end
+
     recorder.settings.hudVisible, changed =  ImGui.Checkbox("Show HUD", recorder.settings.hudVisible)
     if changed then recorder.config.saveFile("config/config.json", recorder.settings) end
 

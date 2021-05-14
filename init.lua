@@ -12,7 +12,8 @@ local recorder = {
 		noWeapon = true,
 		frameStep = 1,
 		autoSwitchHud = true,
-		lastHudTab = "Record"
+		lastHudTab = "Record",
+		deleteConfirm = true
 	},
 
 	settings = {},

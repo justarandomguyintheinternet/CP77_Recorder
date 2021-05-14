@@ -11,7 +11,7 @@ function fileUI.drawFile(recorder, file)
 
     if fileUI.filesData[name] == nil then
         print("loading " .. name)
-        fileUI.filesData[name] = recorder.fileSystem.loadFile("saves/" .. name .. ".json") -- Load file if not loaded yet
+        fileUI.filesData[name] = recorder.config.loadFile("saves/" .. name .. ".json") -- Load file if not loaded yet
     end
 
     if next(fileUI.filesData[name]) ~= nil and name ~= "tmp" then
@@ -32,7 +32,7 @@ function fileUI.drawFile(recorder, file)
         if pressed then 
             fileUI.filesData[name].info.name = fileUI.names[name]  -- Change name logic
             fileUI.filesData[name].info = info 
-            recorder.fileSystem.saveFile("saves/" .. name .. ".json", fileUI.filesData[name])
+            recorder.config.saveFile("saves/" .. name .. ".json", fileUI.filesData[name])
             os.rename("saves/" .. name .. ".json", "saves/" .. fileUI.filesData[name].info.name .. ".json")
         end
 

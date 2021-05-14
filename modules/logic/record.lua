@@ -53,7 +53,7 @@ function record:save()
 		table.insert(saveData.effects, e.data)
 	end
 
-	self.recorder.fileSystem.saveFile(tostring("saves/" .. self.info.name .. ".json"), saveData)
+	self.recorder.config.saveFile(tostring("saves/" .. self.info.name .. ".json"), saveData)
 
 end
 

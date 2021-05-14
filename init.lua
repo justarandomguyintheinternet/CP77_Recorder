@@ -19,7 +19,6 @@ local recorder = {
 
 	baseUI = require("modules/ui/baseUI"),
 	hud = require("modules/ui/hud"),
-	fileSystem = require("fileSys"),
 	recordLogic = require("modules/logic/recordLogic"),
 	tpUtils = require("modules/logic/tpUtils"),
 	input = require("modules/logic/input"),

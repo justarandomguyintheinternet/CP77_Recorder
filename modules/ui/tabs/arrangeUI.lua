@@ -121,15 +121,15 @@ function arrangeUI.drawPlayback(recorder)
     recorder.CPS.colorBegin("Border", arrangeUI.colors.frame)
     ImGui.BeginChild("playbackSettings", arrangeUI.saveBoxSize.x, 44, true)
 
-    if recorder.CPS:CPButton("Play", 50, 25) then
+    if recorder.CPS.CPButton("Play", 50, 25) then
         recorder.playback:startPlayback()
     end
     ImGui.SameLine()
-    if recorder.CPS:CPButton("Pause", 50, 25) then
+    if recorder.CPS.CPButton("Pause", 50, 25) then
         recorder.playback:pausePlayback()
     end
     ImGui.SameLine()
-    if recorder.CPS:CPButton("Reset", 50, 25) then
+    if recorder.CPS.CPButton("Reset", 50, 25) then
         recorder.playback:resetPlayback()
     end
 

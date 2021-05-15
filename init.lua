@@ -13,7 +13,8 @@ local recorder = {
 		frameStep = 1,
 		autoSwitchHud = true,
 		lastHudTab = "Record",
-		deleteConfirm = true
+		deleteConfirm = true,
+		tooltips = 2
 	},
 
 	settings = {},
@@ -25,13 +26,13 @@ local recorder = {
 	input = require("modules/logic/input"),
 	GameUI = require("modules/external/GameUI"),
 	config = require("modules/logic/config"),
-	offsetManager = require("modules/logic/offsetManager")
+	offsetManager = require("modules/logic/offsetManager"),
+	CPS = require("CPStyling")
 }
 
 function recorder:new()
 
 registerForEvent("onInit", function()
-	recorder.CPS = GetMod("CPStyling"):New()
 	local pM = require("modules/logic/playback")
 	recorder.playback = pM:new(recorder)
 	recorder.input.startInputObserver(recorder)

@@ -7,6 +7,23 @@ function settings.draw(recorder)
     recorder.settings.deleteConfirm, changed =  ImGui.Checkbox("Show confirm to delete record popup", recorder.settings.deleteConfirm)
     if changed then recorder.config.saveFile("config/config.json", recorder.settings) end
 
+    ImGui.Text("Show Tooltips: ")
+    ImGui.SameLine()
+    if ImGui.RadioButton("Button", recorder.settings.tooltips == 1) then
+        recorder.settings.tooltips = 1
+        recorder.config.saveFile("config/config.json", recorder.settings)
+    end
+    ImGui.SameLine()
+    if ImGui.RadioButton("Hover", recorder.settings.tooltips == 2) then
+        recorder.settings.tooltips = 2
+        recorder.config.saveFile("config/config.json", recorder.settings)
+    end
+    ImGui.SameLine()
+    if ImGui.RadioButton("Off", recorder.settings.tooltips == 3) then
+        recorder.settings.tooltips = 3
+        recorder.config.saveFile("config/config.json", recorder.settings)
+    end
+
     recorder.settings.hudVisible, changed =  ImGui.Checkbox("Show HUD", recorder.settings.hudVisible)
     if changed then recorder.config.saveFile("config/config.json", recorder.settings) end
 

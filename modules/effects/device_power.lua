@@ -13,7 +13,7 @@ function device:new(frame, record)
     o.miscUtils = require("modules/logic/miscUtils")
     o.childId = Game.GetTimeSystem():GetGameTimeStamp() * math.random()
 
-    o.CPS = GetMod("CPStyling"):New()
+    o.CPS = require("CPStyling")
 
     o.data = {
         frame = frame,
@@ -101,7 +101,7 @@ function device:draw()
 
     ImGui.Separator()
 
-    self.data.state = self.CPS:CPToggle("Turn on / off", "Off", "On", self.data.state, 75 , 25)
+    self.data.state = self.CPS.CPToggle("Turn on / off", "Off", "On", self.data.state, 75 , 25)
 
     ImGui.EndChild()
 end

@@ -14,7 +14,7 @@ function door:new(frame, record)
     o.miscUtils = require("modules/logic/miscUtils")
     o.childId = Game.GetTimeSystem():GetGameTimeStamp() * math.random()
 
-    o.CPS = GetMod("CPStyling"):New()
+    o.CPS = require("CPStyling")
 
     o.data = {frame = frame,
             active = true,
@@ -78,7 +78,7 @@ function door:draw()
 
 	ImGui.Separator()
 
-	self.data.state = self.CPS:CPToggle("Action", "Close", "Open", self.data.state, 85 , 25)
+	self.data.state = self.CPS.CPToggle("Action", "Close", "Open", self.data.state, 85 , 25)
 
     if ImGui.RadioButton("Regular Doors", self.data.doors == 1) then
         self.data.doors = 1

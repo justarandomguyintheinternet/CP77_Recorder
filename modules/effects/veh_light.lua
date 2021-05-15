@@ -13,7 +13,7 @@ function light:new(frame, record)
 
     o.miscUtils = require("modules/logic/miscUtils")
     o.childId = Game.GetTimeSystem():GetGameTimeStamp() * math.random()
-    o.CPS = GetMod("CPStyling"):New()
+    o.CPS = require("CPStyling")
     o.data = {frame = frame,
             active = true,
             on_off = true,
@@ -80,7 +80,7 @@ function light:draw()
 
 	ImGui.Separator()
     ImGui.PushID(self.data.frame)
-	self.data.on_off = self.CPS:CPToggle("Toggle lights on / off", "Off", "On", self.data.on_off, 75 , 25)
+	self.data.on_off = self.CPS.CPToggle("Toggle lights on / off", "Off", "On", self.data.on_off, 75 , 25)
     ImGui.PopID()
     self.data.brightness = ImGui.InputFloat("Brightness", self.data.brightness, 0.01, 15, "%.2f")
     self.data.inTime = ImGui.InputFloat("Fade in / out time", self.data.inTime, 1, 100, "%.2f")

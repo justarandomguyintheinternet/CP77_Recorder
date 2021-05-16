@@ -99,7 +99,9 @@ registerHotkey("recorderSetSubject", "Set subject", function()
 end)
 
 registerHotkey("recorderTimeSpeed", "Toggle time speed", function()
-	recorder.recordLogic.triggerTimeChange = true
+	if recorder.recordLogic.recording then
+		recorder.recordLogic.triggerTimeChange = true
+	end
 end)
 
 registerHotkey("recorderStart", "Start action", function()

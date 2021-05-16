@@ -40,13 +40,11 @@ function recordUI.draw(recorder)
     recordUI.tooltips.drawButton(recorder, "tt_homePointButton")
 
     recorder.recordLogic.timeSpeed = ImGui.SliderFloat("Time speed toggle", recorder.recordLogic.timeSpeed, 0, 3, "%.2f")
-    recordUI.tooltips.drawHover(recorder, "tt_timeSpeedToggle")
-    recordUI.tooltips.drawButton(recorder, "tt_timeSpeedToggle")
+    recordUI.tooltips.drawCombo(recorder, "tt_timeSpeedToggle")
 
     recorder.recordLogic.recordingName =  ImGui.InputTextWithHint("Record Name", "Name...", recorder.recordLogic.recordingName, 100)
     recorder.recordLogic.startPlayback = ImGui.Checkbox("Start playback with recording", recorder.recordLogic.startPlayback)
-    recordUI.tooltips.drawHover(recorder, "tt_startPlaybackWithRecord")
-    recordUI.tooltips.drawButton(recorder, "tt_startPlaybackWithRecord")
+    recordUI.tooltips.drawCombo(recorder, "tt_startPlaybackWithRecord")
     ImGui.EndChild()
 
     ImGui.Spacing()

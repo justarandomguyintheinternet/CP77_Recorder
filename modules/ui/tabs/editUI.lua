@@ -1,4 +1,5 @@
 editUI = {
+    tooltips = require("modules/ui/tooltips"),
     record = nil,
     recordLastFrame = 1,
     saveBoxSize = {info = {x = 530, y = 102},
@@ -41,7 +42,7 @@ function editUI.drawInfo()
     ImGui.EndChild()
 end
 
-function editUI.drawSubject()
+function editUI.drawSubject(recorder)
     local y = 0
     local targetVehicle = (editUI.record.target ~= nil and editUI.record.target:IsVehicle())
     if targetVehicle then y = 27 end
@@ -52,25 +53,37 @@ function editUI.drawSubject()
 
     ImGui.Separator()
     if ImGui.Button("Use look at") then editUI.record:setSubject("lookAt") end
+    editUI.tooltips.drawHover(recorder, "tt_setSubjectLook")
     ImGui.SameLine()
+
     if ImGui.Button("Use player") then editUI.record:setSubject("player") end
+    editUI.tooltips.drawHover(recorder, "tt_setSubjectPlayer")
     ImGui.SameLine()
+
     if ImGui.Button("Use mounted vehicle") then editUI.record:setSubject("mountedVehicle") end
+    editUI.tooltips.drawHover(recorder, "tt_setSubjectVehicle")
     ImGui.SameLine()
+
     if ImGui.Button("Clear") then editUI.record:setSubject("clear") end
+    editUI.tooltips.drawHover(recorder, "tt_setSubjectClear")
+    editUI.tooltips.drawButton(recorder, "tt_editSetSubjectButton")
 
     ImGui.Separator()
 
     if ImGui.Button("Try spawn") then
         editUI.record:spawnTarget()
     end
+    editUI.tooltips.drawCombo(recorder, "tt_trySpawn")
 
     if ImGui.Button("TP to current Frame") then
         local pos = editUI.record.recordData[editUI.record:calcPlayFrame(editUI.record.currentFrame)].pos
+        local rot = editUI.record.recordData[editUI.record:calcPlayFrame(editUI.record.currentFrame)].rot
+        rot = GetSingleton('Quaternion'):ToEulerAngles(Quaternion.new(rot.i, rot.j, rot.k, rot.r))
 	    pos = Vector4.new(pos.x, pos.y, pos.z, pos.w)
-
-        Game.GetTeleportationFacility():Teleport(Game.GetPlayer(), pos, EulerAngles.new(0,0,Game.GetPlayer():GetWorldYaw()))
+        Game.GetTeleportationFacility():Teleport(Game.GetPlayer(), pos, rot)
     end
+    editUI.tooltips.drawCombo(recorder, "tt_tpToCurrentFrame")
+
     editUI.record.playbackSettings.invincible = ImGui.Checkbox("Invincible", editUI.record.playbackSettings.invincible)
 
     if targetVehicle then
@@ -78,12 +91,13 @@ function editUI.drawSubject()
         if ImGui.Button("Delete Vehicle Mappin") then
             editUI.record.target:GetVehicleComponent():DestroyMappin()
         end
+        editUI.tooltips.drawCombo(recorder, "tt_deleteVehiclePin")
     end
 
     ImGui.EndChild()
 end
 
-function editUI.drawPlaybackSettings()
+function editUI.drawPlaybackSettings(recorder)
     local y = 0
     local isPlayer = (editUI.record.target ~= nil and editUI.record.target:IsPlayer())
     if isPlayer then y = 50 end
@@ -94,7 +108,7 @@ function editUI.drawPlaybackSettings()
     ImGui.Separator()
 
     ImGui.PushItemWidth(100)
-    v, changed = ImGui.InputInt("Start offset", editUI.record.playbackSettings.offset, 0, 999999999)
+    v, changed = ImGui.InputInt("Start delay", editUI.record.playbackSettings.offset, 0, 999999999)
     if changed then editUI.record:updateOffset(v) end 
     v, changed = ImGui.InputInt("Trim start", editUI.record.playbackSettings.startTrim, 0, editUI.record.info.frames)
     if changed then editUI.record:updateTrimStart(v) end
@@ -110,7 +124,9 @@ function editUI.drawPlaybackSettings()
     if isPlayer then
         ImGui.Separator()
         editUI.record.playbackSettings.camPitch = ImGui.Checkbox("Player Camera Set Pitch", editUI.record.playbackSettings.camPitch)
+        editUI.tooltips.drawCombo(recorder, "tt_playerCamPitch")
         editUI.record.playbackSettings.camRoll = ImGui.Checkbox("Player Camera Set Roll", editUI.record.playbackSettings.camRoll)
+        editUI.tooltips.drawCombo(recorder, "tt_playerCamRoll")
     end
 
     ImGui.EndChild()
@@ -198,8 +214,8 @@ function editUI.draw(recorder)
     else
         editUI.calcEffectsBoxY()
         editUI.drawInfo()
-        editUI.drawSubject()
-        editUI.drawPlaybackSettings()
+        editUI.drawSubject(recorder)
+        editUI.drawPlaybackSettings(recorder)
         editUI.drawEditSettings()
         editUI.drawEffects()
     end

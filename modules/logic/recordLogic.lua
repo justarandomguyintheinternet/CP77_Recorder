@@ -147,7 +147,7 @@ function recordLogic.stopRecord(recorder)
             length = recordLogic.subject:GetRecordID().length
         end)
 
-        newRecord.info = {location = recordLogic.getDistrict(), playbackOnText = "Not set", frames = recordLogic.frame, recordedOn = recordLogic.currentSubjectText, name = recordLogic.recordingName, objectID = {hash = hash, length = length}}
+        newRecord.info = {location = recordLogic.getDistrict(), playbackOnText = "Not set", frames = recordLogic.frame, recordedOn = recordLogic.currentSubjectText, name = recordLogic.recordingName, objectID = {hash = hash, length = length}, isVehicle = recordLogic.subject:IsVehicle()}
         newRecord.playbackSettings = {startTrim = 0, endTrim = 0, offset = 0, ignoreRot = false, ignorePos = false, ignoreTime = false, invincible = false, enabled = true, reverse = false, camPitch = true, camRoll = true}
 
         for i = 1, recordLogic.frame do
@@ -193,12 +193,12 @@ function recordLogic.setHomePoint()
         recordLogic.homePoint.rot = recordLogic.subject:GetWorldOrientation()
     else
         recordLogic.currentSubjectText = "Set a subject first!"
-    end 
+    end
 end
 
 function recordLogic.tpToHome(recorder)
     if recordLogic.homePoint ~= nil then
-        recorder.tpUtils.tpTo(recordLogic.subject,  recordLogic.homePoint.pos, recordLogic.homePoint.rot)
+        Game.GetTeleportationFacility():Teleport(recordLogic.subject, recordLogic.homePoint.pos , GetSingleton('Quaternion'):ToEulerAngles(recordLogic.homePoint.rot))
     else
         recordLogic.currentSubjectText = "Set a homepoint first!"
     end

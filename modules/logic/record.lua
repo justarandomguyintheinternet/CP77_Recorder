@@ -68,7 +68,7 @@ function record:setSubject(key)
         if Game.GetTargetingSystem():GetLookAtObject(Game.GetPlayer(), false, false) ~= nil then
             self.target = Game.GetTargetingSystem():GetLookAtObject(Game.GetPlayer(), false, false)
             self.info.playbackOnText = tostring(self.target:GetDisplayName())
-			self.currentFrame = self.recorder.playback.currentFrame	
+			self.currentFrame = self.recorder.playback.currentFrame
 			self.recorder.playback:jumpToFrame(self.currentFrame)
         end
     elseif key == "mountedVehicle" then
@@ -81,12 +81,36 @@ function record:setSubject(key)
     elseif key == "clear" then
 		self.target = nil
 		self.info.playbackOnText = "Not set"
+		Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(0, 0, 0)))
 	end
 
 	for _, e in pairs(self.effects) do
 		e:updateCompatible()
 	end
 
+end
+
+function record:autoSetSubject()
+    if Game['GetMountedVehicle;GameObject'](Game.GetPlayer()) ~= nil then
+        self.target = Game['GetMountedVehicle;GameObject'](Game.GetPlayer())
+        self.info.playbackOnText = tostring(self.target:GetDisplayName())
+		self.currentFrame = self.recorder.playback.currentFrame
+		self.recorder.playback:jumpToFrame(self.currentFrame)
+    elseif Game.GetTargetingSystem():GetLookAtObject(Game.GetPlayer(), false, false) ~= nil then
+        self.target = Game.GetTargetingSystem():GetLookAtObject(Game.GetPlayer(), false, false)
+        self.info.playbackOnText = tostring(self.target:GetDisplayName())
+		self.currentFrame = self.recorder.playback.currentFrame
+		self.recorder.playback:jumpToFrame(self.currentFrame)
+    else
+        self.target = Game.GetPlayer()
+        self.info.playbackOnText = "Player"
+		self.currentFrame = self.recorder.playback.currentFrame
+		self.recorder.playback:jumpToFrame(self.currentFrame)
+    end
+
+	for _, e in pairs(self.effects) do
+		e:updateCompatible()
+	end
 end
 
 function record:sortEffects()
@@ -150,7 +174,7 @@ function record:handleGodMode()
 			local vComp = self.target:GetVehicleComponent()
 			self.target:DestructionResetGrid()
 			self.target:DestructionResetGlass()
-			vComp:RepairVehicle() 
+			vComp:RepairVehicle()
 		end
 		Game.GetGodModeSystem():AddGodMode(self.target:GetEntityID(), 0, "")
 	else

@@ -98,7 +98,7 @@ function tooltips.displayTooltip(recorder, key)
         elseif key == "tt_HKswitchHud" then
             ImGui.SetTooltip("Cycles through the 3 hud modes")
         elseif key == "tt_HKsetSubject" then
-            ImGui.SetTooltip("Auto sets the subject of the \"Record\" tab to mounted vehicle, look at or player (In that order)")
+            ImGui.SetTooltip("Auto sets the subject to mounted vehicle, look at or player (In that order). Requires HUD Mode \"Record\" or \"Edit\"")
         elseif key == "tt_HKstart" then
             ImGui.SetTooltip("HUD mode record: Starts recording. HUD mode Playback/Edit: Starts playback")
         elseif key == "tt_HKpause" then

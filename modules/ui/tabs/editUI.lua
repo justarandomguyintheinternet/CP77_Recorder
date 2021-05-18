@@ -125,7 +125,8 @@ function editUI.drawPlaybackSettings(recorder)
         ImGui.Separator()
         editUI.record.playbackSettings.camPitch = ImGui.Checkbox("Player Camera Set Pitch", editUI.record.playbackSettings.camPitch)
         editUI.tooltips.drawCombo(recorder, "tt_playerCamPitch")
-        editUI.record.playbackSettings.camRoll = ImGui.Checkbox("Player Camera Set Roll", editUI.record.playbackSettings.camRoll)
+        editUI.record.playbackSettings.camRoll, changed = ImGui.Checkbox("Player Camera Set Roll", editUI.record.playbackSettings.camRoll)
+        if changed and not editUI.record.playbackSettings.camRoll then Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(0, 0, 0))) end
         editUI.tooltips.drawCombo(recorder, "tt_playerCamRoll")
     end
 

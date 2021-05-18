@@ -96,6 +96,16 @@ function hud.resetAction(recorder)
     end
 end
 
+function hud.setSubject(recorder)
+    if hud.mode == "Record" then
+        recorder.recordLogic.autoSetSubject(recorder)
+    elseif hud.mode == "Edit" then
+        if recorder.baseUI.editUI.record ~= nil then
+            recorder.baseUI.editUI.record:autoSetSubject()
+        end
+    end
+end
+
 function hud.switchMode(recorder)
     if hud.mode == "Record" then
 		hud.mode = "Playback"

@@ -84,7 +84,8 @@ function arrangeUI.drawSlot(recorder, record, id)
     record.info.name = ImGui.InputTextWithHint("", "EmptyName", info.name, 100)
     ImGui.PopItemWidth()
     ImGui.SameLine()
-    record.playbackSettings.enabled = ImGui.Checkbox("Playback enabled", record.playbackSettings.enabled)
+    record.playbackSettings.enabled, changed = ImGui.Checkbox("Playback enabled", record.playbackSettings.enabled)
+    if changed and not record.playbackSettings.enabled then Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(0, 0, 0))) end
     ImGui.Separator()
 
     ImGui.Text(tostring("Recorded on: " .. info.recordedOn))
@@ -106,7 +107,8 @@ function arrangeUI.drawSlot(recorder, record, id)
     end
     ImGui.SameLine()
     pressed = ImGui.Button("Remove")
-    if pressed then 
+    if pressed then
+        Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(0, 0, 0)))
         if recorder.baseUI.editUI.record == arrangeUI.loadedRecords[id] then
             recorder.baseUI.editUI.record = nil
         end

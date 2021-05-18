@@ -59,10 +59,11 @@ registerForEvent("onInit", function()
 	recorder.hud.mode = recorder.settings.lastHudTab -- Setup last HUD Tab
 end)
 
+registerForEvent("onShutdown", function ()
+	Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(0, 0, 0)))
+end)
+
 registerForEvent("onUpdate", function()
-
-	Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(0, 0, 0))) -- Make sure that cam roll is always 0, if not overriden from wtihing run
-
 	if recorder.runtimeData.inGame and not recorder.runtimeData.inMenu then
 		recorder.recordLogic.run(recorder)
 		recorder.playback:run()
@@ -95,7 +96,7 @@ registerHotkey("recorderSwitchMode", "Switch Recorder Mode", function()
 end)
 
 registerHotkey("recorderSetSubject", "Set subject", function()
-	recorder.recordLogic.autoSetSubject(recorder)
+	recorder.hud.setSubject(recorder)
 end)
 
 registerHotkey("recorderTimeSpeed", "Toggle time speed", function()

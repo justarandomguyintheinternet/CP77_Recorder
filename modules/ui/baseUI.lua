@@ -27,7 +27,7 @@ function baseUI.draw(recorder)
         wWidth, wHeight = GetDisplayResolution()
 
         recorder.CPS:setThemeBegin()
-        ImGui.Begin("Recorder v.0.1a", ImGuiWindowFlags.AlwaysAutoResize)
+        ImGui.Begin("CyberRecorder v.1.0", ImGuiWindowFlags.AlwaysAutoResize)
         ImGui.SetWindowPos(wWidth/2-250, wHeight/2-400, ImGuiCond.FirstUseEver)
         ImGui.SetWindowSize(550, 300)
 

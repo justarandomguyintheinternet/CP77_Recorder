@@ -49,7 +49,7 @@ function editUI.drawSubject(recorder)
 
     ImGui.BeginChild("editUI_Subject", editUI.saveBoxSize.subject.x, editUI.saveBoxSize.subject.y + y, true)
 
-    ImGui.Text("Subject")
+    ImGui.Text("Subject Settings")
 
     ImGui.Separator()
     if ImGui.Button("Use look at") then editUI.record:setSubject("lookAt") end

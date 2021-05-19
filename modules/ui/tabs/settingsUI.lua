@@ -51,6 +51,7 @@ function settings.draw(recorder)
 
     ImGui.Separator()
 
+    ImGui.BeginChild("hotkeys", 400, 200, true)
     ImGui.Text("Hotkeys info:")
     settings.tooltips.drawCombo(recorder, "tt_hotkeys")
     ImGui.Text(tostring("Toggle HUD: " .. GetBind("recorderToggleHUD")))
@@ -67,6 +68,7 @@ function settings.draw(recorder)
     settings.tooltips.drawCombo(recorder, "tt_HKreset")
     ImGui.Text(tostring("Toggle Time Speed: " .. GetBind("recorderTimeSpeed")))
     settings.tooltips.drawCombo(recorder, "tt_HKtimeSpeed")
+    ImGui.EndChild()
 end
 
 return settings

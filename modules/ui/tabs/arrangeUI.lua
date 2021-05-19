@@ -41,7 +41,7 @@ function arrangeUI.getNumNames(name)
 
     for _, v in pairs(arrangeUI.loadedRecords) do
         if name:gsub('%d','')  == v.info.name:gsub('%d','') then 
-            num = num + 1 
+            num = num + 1
         end
     end
 

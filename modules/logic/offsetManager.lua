@@ -14,7 +14,6 @@ end
 
 function oM.resetRecord(recorder, record)
     local id = recorder.baseUI.arrangeUI.miscUtils.indexValue(recorder.baseUI.arrangeUI.loadedRecords, record)
-    print(id, "id")
     oM.offsets[id] = {x = 0, y = 0, z = 0}
 end
 

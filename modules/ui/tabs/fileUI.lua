@@ -12,7 +12,6 @@ function fileUI.drawFile(recorder, file)
     local name = file.name:match("(.+)%..+$")
 
     if fileUI.filesData[name] == nil then
-        print("loading " .. name)
         fileUI.filesData[name] = recorder.config.loadFile("saves/" .. name .. ".json") -- Load file if not loaded yet
     end
 

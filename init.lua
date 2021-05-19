@@ -47,7 +47,6 @@ registerForEvent("onInit", function()
 
     recorder.GameUI.OnSessionEnd(function()
         recorder.runtimeData.inGame = false
-		recorder.hud.tryNoWeapon(recorder, false) -- Always remove noWeapon restriction
 		recorder.baseUI.arrangeUI.clearAllTargets() -- Clear all targets to avoid issues
     end)
 

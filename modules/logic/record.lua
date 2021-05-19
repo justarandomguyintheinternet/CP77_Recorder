@@ -81,7 +81,9 @@ function record:setSubject(key)
     elseif key == "clear" then
 		self.target = nil
 		self.info.playbackOnText = "Not set"
-		Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(0, 0, 0)))
+		pcall(function ()
+			Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(GetSingleton('EulerAngles'):ToQuat(EulerAngles.new(0, 0, 0))) -- If called onSessionEnd player is nil
+		end)
 	end
 
 	for _, e in pairs(self.effects) do
@@ -184,8 +186,17 @@ end
 
 function record:spawnTarget()
 	if self.recorderObjectID ~= nil then
-		Game.GetPlayer():SetWarningMessage("Try looking away and back, to make npcs spawn!")
-		Game.GetPreventionSpawnSystem():RequestSpawn(self.recorderObjectID, -69, Game.GetPlayer():GetWorldTransform())
+		if self.info.isVehicle then
+			Game.GetVehicleSystem():ToggleSummonMode()
+			local garageVehicleId = NewObject('vehicleGarageVehicleID')
+			garageVehicleId.recordID = self.recorderObjectID -- Thx psiberx
+			Game.GetVehicleSystem():TogglePlayerActiveVehicle(garageVehicleId, 'Car', true)
+			Game.GetVehicleSystem():SpawnPlayerVehicle('Car')
+			Game.GetVehicleSystem():ToggleSummonMode()
+		else
+			Game.GetPlayer():SetWarningMessage("Try looking away and back, to make it spawn!")
+			Game.GetPreventionSpawnSystem():RequestSpawn(self.recorderObjectID, -69, Game.GetPlayer():GetWorldTransform())
+		end
 	end
 end
 

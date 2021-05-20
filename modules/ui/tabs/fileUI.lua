@@ -89,11 +89,15 @@ function fileUI.handlePopUp(recorder) -- ToDo : Make this its own universal modu
 end
 
 function fileUI.draw(recorder)
-    if next(dir("saves")) == nil then
-        ImGui.Text("Nothing here ... Record something first!")
-    end
+    local f = false -- True if any .json file
     for _, file in pairs(dir("saves")) do
-        fileUI.drawFile(recorder, file)
+        if file.name:match("^.+(%..+)$") == ".json" then
+            f = true
+            fileUI.drawFile(recorder, file)
+        end
+    end
+    if not f then
+        ImGui.Text("Nothing here ... Record something first!")
     end
     fileUI.handlePopUp(recorder)
 end

@@ -171,6 +171,7 @@ function recordLogic.stopRecord(recorder)
 
         newRecord:save()
         recorder.baseUI.arrangeUI.loadRecord(newRecord)
+        recorder.baseUI.fileUI.filesData[newRecord.info.name] = nil
         recordLogic.updateOverlay(recorder)
         recorder.hud.state = "Done"
     end

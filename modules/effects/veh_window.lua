@@ -3,7 +3,7 @@ window = {}
 function window:new(frame, record)
 	local o = {}
 
-    o.saveBoxSize = {x = 515, y = 155}
+    o.saveBoxSize = {x = 515, y = 155 * 1.25}
     o.collapsed = false
 
     o.record = record

@@ -3,7 +3,7 @@ fov = {}
 function fov:new(frame, record)
 	local o = {} 
 
-    o.saveBoxSize = {x = 515, y = 170}
+    o.saveBoxSize = {x = 515, y = 170 * 1.25}
     o.collapsed = false
 
     o.record = record
@@ -45,6 +45,7 @@ end
 function fov:draw()
     self:updateCompatible()
 
+    local h = ImGui.GetFrameHeight() + 2 * ImGui.GetStyle().ItemSpacing.y + 3 * ImGui.GetStyle().FramePadding.y
 	ImGui.BeginChild("cam_fov_" .. self.childId, self.saveBoxSize.x, self.saveBoxSize.y, true)
 
     ImGui.Text("Camera | FOV")

@@ -3,7 +3,7 @@ light = {}
 function light:new(frame, record)
 	local o = {} 
 
-    o.saveBoxSize = {x = 515, y = 270}
+    o.saveBoxSize = {x = 515, y = 270 * 1.25}
     o.collapsed = false
 
     o.record = record

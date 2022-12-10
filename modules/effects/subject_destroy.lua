@@ -3,7 +3,7 @@ destroy = {}
 function destroy:new(frame, record)
 	local o = {} 
 
-    o.saveBoxSize = {x = 515, y = 120}
+    o.saveBoxSize = {x = 515, y = 120 * 1.25}
     o.collapsed = false
 
     o.record = record

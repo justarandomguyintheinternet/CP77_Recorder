@@ -6,7 +6,8 @@ recordUI = {
 function recordUI.draw(recorder)
     recorder.CPS.colorBegin("Border", recordUI.colors.frame)
 
-    ImGui.BeginChild("subjectSettings", 525, 60, true)
+    local h = 2 * ImGui.GetFrameHeight() + 3 * ImGui.GetStyle().ItemSpacing.y + 2 * ImGui.GetStyle().FramePadding.y
+    ImGui.BeginChild("subjectSettings", 525, h, true)
     ImGui.Text("Recording subject:")
     ImGui.SameLine()
     ImGui.Text(tostring(recorder.recordLogic.currentSubjectText))
@@ -28,7 +29,8 @@ function recordUI.draw(recorder)
     recordUI.tooltips.drawButton(recorder, "tt_setSubjectButton")
     ImGui.EndChild()
 
-    ImGui.BeginChild("miscSettings", 525, 105, true)
+    local h = 4 * ImGui.GetFrameHeight() + 6 * ImGui.GetStyle().ItemSpacing.y + 2 * ImGui.GetStyle().FramePadding.y
+    ImGui.BeginChild("miscSettings", 525, h, true)
     pressed = ImGui.Button("Set subject position as home point")
     if pressed then recorder.recordLogic.setHomePoint() end
     recordUI.tooltips.drawHover(recorder, "tt_setHomePoint")

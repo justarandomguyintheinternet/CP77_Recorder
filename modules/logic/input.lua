@@ -1,7 +1,7 @@
 input = {}
 
 function input.startInputObserver(recorder)
-    Observe('PlayerPuppet', 'OnAction', function(action)
+    Observe('PlayerPuppet', 'OnAction', function(_, action)
         local actionName = Game.NameToString(action:GetName(action))
         local actionType = action:GetType(action).value
         if actionName == 'ChoiceScrollUp'then

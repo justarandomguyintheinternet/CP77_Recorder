@@ -3,10 +3,10 @@ editUI = {
     record = nil,
     recordLastFrame = 1,
     saveBoxSize = {info = {x = 530, y = 102},
-                   subject = {x = 530, y = 130},
-                   pbs = {x = 530, y = 148},
-                   eds = {x = 530, y = 80},
-                   efs = {x = 530, y = 75, yCalc = 0}},  
+                   subject = {x = 530, y = 130 * 1.25},
+                   pbs = {x = 530, y = 148 * 1.3},
+                   eds = {x = 530, y = 80 * 1.2},
+                   efs = {x = 530, y = 75, yCalc = 0}},
 	colors = {frame = {0, 50, 255}},
     selectedEffect = 0,
     effectNames = {[0] = {dName = "Subject | Clear", key = "subject_clear"},
@@ -30,7 +30,8 @@ end
 function editUI.drawInfo()
     local info = editUI.record.info
 
-    ImGui.BeginChild("editUI_Info", editUI.saveBoxSize.info.x, editUI.saveBoxSize.info.y, true)
+    local h = 5 * ImGui.GetFrameHeight() + ImGui.GetStyle().ItemSpacing.y + 2 * ImGui.GetStyle().FramePadding.y
+    ImGui.BeginChild("editUI_Info", editUI.saveBoxSize.info.x, h, true)
 
     ImGui.Text("Info")
     ImGui.Separator()
@@ -164,7 +165,7 @@ function editUI.drawEditSettings()
 end
 
 function editUI.drawEffects()
-    ImGui.BeginChild("editUI_EffectsSettings", editUI.saveBoxSize.efs.x, 60, true) -- editUI.saveBoxSize.efs.yCalc
+    ImGui.BeginChild("editUI_EffectsSettings", editUI.saveBoxSize.efs.x, 60 * 1.2, true) -- editUI.saveBoxSize.efs.yCalc
 
     ImGui.Text("Effects")
     ImGui.Separator()
@@ -172,7 +173,7 @@ function editUI.drawEffects()
     editUI.selectedEffect = ImGui.Combo("", editUI.selectedEffect, {editUI.effectNames[0].dName, editUI.effectNames[1].dName, editUI.effectNames[2].dName, editUI.effectNames[3].dName, editUI.effectNames[4].dName, editUI.effectNames[5].dName, editUI.effectNames[6].dName, editUI.effectNames[7].dName, editUI.effectNames[8].dName, editUI.effectNames[9].dName, editUI.effectNames[10].dName, editUI.effectNames[11].dName}, 12)
     ImGui.SameLine()
     if ImGui.Button("Add") then 
-        editUI.record:addEffect(editUI.effectNames[editUI.selectedEffect].key) 
+        editUI.record:addEffect(editUI.effectNames[editUI.selectedEffect].key)
     end
     ImGui.SameLine()
     if ImGui.Button("Sort effects") then

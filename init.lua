@@ -37,7 +37,7 @@ registerForEvent("onInit", function()
 	recorder.playback = pM:new(recorder)
 	recorder.input.startInputObserver(recorder)
 
-	Observe('RadialWheelController', 'OnIsInMenuChanged', function(isInMenu )
+	Observe('RadialWheelController', 'OnIsInMenuChanged', function(_, isInMenu)
         recorder.runtimeData.inMenu = isInMenu
     end)
 

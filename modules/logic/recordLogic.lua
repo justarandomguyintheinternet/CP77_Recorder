@@ -98,7 +98,7 @@ function recordLogic.record()
     else
 	    recordLogic.recordDataRotation[recordLogic.frame] = recordLogic.subject:GetWorldOrientation()
     end
-	--print("Frame " .. recordLogic.frame .. " : " .. tostring(recordLogic.recordDataPosition[recordLogic.frame]))
+	print("Frame " .. recordLogic.frame .. " : " .. tostring(recordLogic.recordDataPosition[recordLogic.frame]))
     recordLogic.frame = recordLogic.frame + 1
 end
 

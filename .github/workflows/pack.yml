@@ -1,0 +1,29 @@
+name: pack
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup folders
+        run: |
+          cd ${{ github.workspace }}
+          sudo mkdir -p /recorderPacked/bin/x64/plugins/cyber_engine_tweaks/mods/recorder/
+      - name: Copy files
+        run: |
+          sudo cp -r init.lua /recorderPacked/bin/x64/plugins/cyber_engine_tweaks/mods/recorder/
+          sudo cp -r saves /recorderPacked/bin/x64/plugins/cyber_engine_tweaks/mods/recorder/
+          sudo cp -r config /recorderPacked/bin/x64/plugins/cyber_engine_tweaks/mods/recorder/
+          sudo cp -r CPStyling /recorderPacked/bin/x64/plugins/cyber_engine_tweaks/mods/recorder/
+          sudo cp -r modules /recorderPacked/bin/x64/plugins/cyber_engine_tweaks/mods/recorder/
+      - name: Upload zip
+        uses: actions/upload-artifact@v2
+        with:
+            name: recorderPacked
+            path: /recorderPacked/

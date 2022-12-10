@@ -3,7 +3,7 @@ door = {}
 function door:new(frame, record)
 	local o = {}
 
-    o.saveBoxSize = {x = 515, y = 200}
+    o.saveBoxSize = {x = 515, y = 200 * 1.25}
     o.collapsed = false
 
     o.record = record

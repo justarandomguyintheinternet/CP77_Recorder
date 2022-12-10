@@ -78,7 +78,9 @@ function arrangeUI.drawSlot(recorder, record, id)
     info = record.info
     recorder.CPS.colorBegin("Border", arrangeUI.colors.frame)
     recorder.CPS.colorBegin("Separator", arrangeUI.colors.frame)
-    ImGui.BeginChild("loadedSlot" .. id, arrangeUI.saveBoxSize.x, arrangeUI.saveBoxSize.y, true)
+
+    local h = 6 * ImGui.GetFrameHeight() + 4 * ImGui.GetStyle().ItemSpacing.y + 2 * ImGui.GetStyle().FramePadding.y
+    ImGui.BeginChild("loadedSlot" .. id, arrangeUI.saveBoxSize.x, h, true)
 
     ImGui.PushItemWidth(300)
     record.info.name = ImGui.InputTextWithHint("", "EmptyName", info.name, 100)
@@ -121,7 +123,9 @@ end
 
 function arrangeUI.drawPlayback(recorder)
     recorder.CPS.colorBegin("Border", arrangeUI.colors.frame)
-    ImGui.BeginChild("playbackSettings", arrangeUI.saveBoxSize.x, 44, true)
+
+    local h = ImGui.GetFrameHeight() + 2 * ImGui.GetStyle().ItemSpacing.y + 3 * ImGui.GetStyle().FramePadding.y
+    ImGui.BeginChild("playbackSettings", arrangeUI.saveBoxSize.x, h, true)
 
     if recorder.CPS.CPButton("Play", 50, 25) then
         recorder.playback:startPlayback()

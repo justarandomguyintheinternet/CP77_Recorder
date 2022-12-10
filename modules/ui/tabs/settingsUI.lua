@@ -54,7 +54,7 @@ function settings.draw(recorder)
     local y = 200
     if recorder.settings.tooltips == 2 then y = y - 50 end
 
-    ImGui.BeginChild("hotkeys", 400, y, true)
+    ImGui.BeginChild("hotkeys", 400, y * 1.3, true)
     ImGui.Text("Hotkeys info:")
     settings.tooltips.drawCombo(recorder, "tt_hotkeys")
     ImGui.Text(tostring("Toggle HUD: " .. GetBind("recorderToggleHUD")))

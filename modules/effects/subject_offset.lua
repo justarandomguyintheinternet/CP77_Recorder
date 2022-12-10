@@ -3,7 +3,7 @@ offset = {}
 function offset:new(frame, record, recorder)
 	local o = {}
 
-    o.saveBoxSize = {x = 515, y = 170}
+    o.saveBoxSize = {x = 515, y = 170 * 1.25}
     o.collapsed = false
 
     o.record = record

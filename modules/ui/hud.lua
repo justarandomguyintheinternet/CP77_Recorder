@@ -18,7 +18,7 @@ function hud.draw(recorder)
     recorder.CPS.colorBegin("WindowBg", {0,0,0,0})
 
     if (ImGui.Begin("hud", bit32.bor(ImGuiWindowFlags.AlwaysAutoResize, ImGuiWindowFlags.NoTitleBar))) then
-        ImGui.BeginChild("hud_frame", 22 + hud.extraWidth, 80, true)
+        ImGui.BeginChild("hud_frame", 22 + hud.extraWidth, 80 * 1.25, true)
         ImGui.Text("Mode: " .. hud.mode)
         if hud.mode == "Record" then
             hud.drawRecord(recorder)

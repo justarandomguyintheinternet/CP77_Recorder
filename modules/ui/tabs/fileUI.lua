@@ -1,5 +1,5 @@
 fileUI = {
-    saveBoxSize = {x = 525, y = 80},
+    saveBoxSize = {x = 525, y = 80 * 1.25},
 	colors = {frame = {0, 50, 255}},
     filesData = {},
     names = {},
